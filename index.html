@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Presentes de Natal por perfil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0;--surface:#ffffff;--ink:#1d2a24;--muted:#5d6b64;--pine:#1f4a37;--berry:#b3202a;--line:#d9d6cc;--onpine:#f7f5f0;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#121a16;--surface:#1a2520;--ink:#eef0ea;--muted:#a3b0a8;--pine:#8fd1ab;--berry:#ff7a7f;--line:#2d3b34;--onpine:#0f1a14;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#121a16;--surface:#1a2520;--ink:#eef0ea;--muted:#a3b0a8;--pine:#8fd1ab;--berry:#ff7a7f;--line:#2d3b34;--onpine:#0f1a14;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "DM Sans",system-ui,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:28px 18px 40px}
+h1{font:800 clamp(2rem,7vw,3.2rem)/1.05 "Fraunces",Georgia,serif;margin:0 0 12px;letter-spacing:-.02em}
+.sub{color:var(--muted);max-width:52ch;margin:0 0 20px}
+.count{display:inline-block;background:var(--berry);color:#fff;font-weight:700;padding:6px 12px;border-radius:999px;margin:0 0 22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.chip{font:500 .95rem "DM Sans",sans-serif;border:1.5px solid var(--pine);background:transparent;color:var(--pine);padding:8px 14px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--pine);color:var(--onpine)}
+.chip:focus-visible,.buy:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.emo{font-size:2rem;line-height:1}
+.item h2{font:600 1.15rem/1.25 "Fraunces",Georgia,serif;margin:4px 0 0}
+.item p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+.buy{margin-top:10px;align-self:flex-start;background:var(--pine);color:var(--onpine);font-weight:700;text-decoration:none;padding:10px 16px;border-radius:8px}
+.buy:hover{filter:brightness(1.1)}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+:root{--onberry:#fff;padding-top:0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--onberry:#2a0709}}
+:root[data-theme="dark"]{--onberry:#2a0709}
+.hero{position:relative;overflow:hidden;background:linear-gradient(160deg,#133126 0%,#1f4a37 60%,#2b5e46 100%);color:#f7f5f0;padding:calc(env(safe-area-inset-top,0px) + 44px) 18px 64px}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20px 30px,rgba(255,255,255,.6),transparent),radial-gradient(3px 3px at 90px 80px,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 150px 20px,rgba(255,255,255,.5),transparent),radial-gradient(2.5px 2.5px at 60px 140px,rgba(255,255,255,.7),transparent);background-size:180px 180px;animation:snow 14s linear infinite;opacity:.75}
+@keyframes snow{to{background-position:-40px 180px}}
+@media (prefers-reduced-motion:reduce){.hero::before{animation:none}}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:18px;background:radial-gradient(circle at 12px 0,transparent 11px,var(--bg) 12px) 0 0/24px 18px repeat-x}
+.hero-in{position:relative;max-width:880px;margin:0 auto}
+.hero h1{color:#fff;font-size:clamp(2.3rem,8.5vw,4rem);max-width:15ch;margin-bottom:14px}
+.hero .sub{color:#cfe0d6;font-size:1.05rem;margin-bottom:22px}
+.hero .count{background:#f2c14e;color:#3a2a00;margin:0}
+.wrap{padding-top:26px}
+.chip{padding:10px 16px;font-size:1rem}
+.item{--acc:var(--pine);position:relative;padding:24px 20px 20px;border-radius:16px;transition:transform .2s,box-shadow .2s}
+.item:nth-child(3n+2){--acc:var(--berry)}
+.item:nth-child(3n){--acc:#c98f12}
+.item::before{content:"";position:absolute;left:20px;right:20px;top:0;height:4px;border-radius:0 0 4px 4px;background:var(--acc)}
+.item:hover{transform:translateY(-3px);box-shadow:0 12px 26px -14px rgba(0,0,0,.4)}
+.emo{width:56px;height:56px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--acc) 16%,var(--surface));font-size:1.7rem}
+.item h2{font-size:1.22rem}
+.buy{background:var(--berry);color:var(--onberry);text-align:center;align-self:stretch;margin-top:14px;border-radius:10px}
+.hero{text-align:center;border-radius:0 0 28px 28px;padding-bottom:44px;background:radial-gradient(120% 90% at 50% 0%,#2f6a50 0%,#1b4130 55%,#132e22 100%)}
+.hero::before,.hero::after{display:none}
+.hero h1{margin:0 auto 12px;max-width:16ch;font-size:clamp(2.1rem,8vw,3.6rem)}
+.hero .sub{margin:0 auto 20px;max-width:40ch}
+.wrap{padding-top:28px}
+.chips{justify-content:center}
+.chip{background:var(--surface);border-color:var(--line);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.chip[aria-pressed="true"]{background:var(--berry);border-color:var(--berry);color:var(--onberry)}
+.item{padding:12px 12px 16px;border:none;border-radius:20px;box-shadow:0 2px 14px -6px rgba(0,0,0,.28)}
+.item::before{display:none}
+.emo{width:100%;height:112px;border-radius:14px;font-size:3.4rem;background:color-mix(in srgb,var(--acc) 14%,var(--surface))}
+.item h2,.item p{padding:0 6px}
+.buy{align-self:stretch;margin:12px 6px 0;border-radius:999px;padding:12px 16px}
+:root{--pine:#7c3aed;--berry:#e11d48}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pine:#b794ff;--berry:#ff5c7a}}
+:root[data-theme="dark"]{--pine:#b794ff;--berry:#ff5c7a}
+.hero{background:linear-gradient(135deg,#d4145a 0%,#f0412f 52%,#ff8a00 100%)}
+.hero h1{color:#fff;text-shadow:0 2px 14px rgba(120,0,40,.35)}
+.hero .sub{color:#fff}
+.hero .count{background:#fff;color:#c4123b;box-shadow:0 4px 14px -4px rgba(120,0,40,.5)}
+.chip[aria-pressed="true"]{background:linear-gradient(135deg,#e11d48,#f97316);border-color:transparent;color:#fff}
+.item:nth-child(3n){--acc:#f59e0b}
+.buy{background:linear-gradient(135deg,#e11d48,#f97316);color:#fff;box-shadow:0 6px 14px -6px rgba(225,29,72,.7)}
+</style>
+</head>
+<body>
+<header class="hero"><div class="hero-in">
+  <h1>Presentes de Natal que acertam em cheio</h1>
+  <p class="sub">Escolha para quem é o presente e veja ideias fáceis de encontrar e entregar a tempo.</p>
+  <div class="count" id="count"></div></div></header>
+<div class="wrap">
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por perfil"></div>
+  <div class="grid" id="grid"></div>
+  <footer>Alguns links desta página são de afiliados: se você comprar por eles, o site pode receber uma comissão, sem custo extra para você. Preços e disponibilidade mudam, confira na loja.</footer>
+</div>
+<script>
+/* ============ CONFIGURAÇÃO: edite só esta parte ============ */
+// 1) Sua tag de afiliado da Amazon (Associados). Deixe "" até ter a sua.
+var AMAZON_TAG = "";
+// 2) Para usar outra loja (Mercado Livre, Shopee, Hotmart), cole seu link de afiliado no campo link do produto.
+var PRODUTOS = [
+  {e:"🎧",t:"Fone de ouvido bluetooth",d:"Para quem vive de música, treino e chamadas.",q:"fone de ouvido bluetooth",c:["ele","ela"],link:""},
+  {e:"⌚",t:"Relógio inteligente",d:"Notificações e saúde no pulso, de básico a completo.",q:"smartwatch",c:["ele","ela"],link:""},
+  {e:"🪒",t:"Kit de barbear e barba",d:"Presente clássico para quem cuida da barba.",q:"kit barba presente",c:["ele"],link:""},
+  {e:"🧰",t:"Maleta de ferramentas",d:"Útil para quem gosta de consertar e montar.",q:"maleta de ferramentas",c:["ele","casa"],link:""},
+  {e:"🧴",t:"Kit de skincare",d:"Rotina de cuidados com a pele em um só presente.",q:"kit skincare",c:["ela"],link:""},
+  {e:"👜",t:"Bolsa transversal",d:"Prática para o dia a dia e fácil de combinar.",q:"bolsa transversal feminina",c:["ela"],link:""},
+  {e:"💨",t:"Secador de cabelo",d:"Ótima opção para quem usa todo dia.",q:"secador de cabelo",c:["ela","casa"],link:""},
+  {e:"🕯️",t:"Vela aromática",d:"Presente simples e bonito para qualquer pessoa.",q:"vela aromática",c:["ela","casa","barato"],link:""},
+  {e:"🧱",t:"Blocos de montar",d:"Diversão e criatividade para várias idades.",q:"blocos de montar",c:["criancas"],link:""},
+  {e:"🧩",t:"Quebra-cabeça",d:"Passatempo para a família reunida no fim de ano.",q:"quebra-cabeça",c:["criancas","casa","barato"],link:""},
+  {e:"📚",t:"Livros infantis ilustrados",d:"Histórias para ler junto e criar o hábito.",q:"livro infantil ilustrado",c:["criancas","barato"],link:""},
+  {e:"🎲",t:"Jogo de tabuleiro",d:"Para juntar a turma e passar a noite jogando.",q:"jogo de tabuleiro",c:["criancas","ele","ela"],link:""},
+  {e:"🍟",t:"Air fryer",d:"Um dos eletros mais desejados para a cozinha.",q:"air fryer",c:["casa"],link:""},
+  {e:"🥤",t:"Garrafa térmica",d:"Mantém a bebida gelada ou quente por horas.",q:"garrafa térmica",c:["casa","ele","ela","barato"],link:""},
+  {e:"🧣",t:"Manta de sofá",d:"Conforto para o inverno e para maratonar séries.",q:"manta de sofá",c:["casa","ela"],link:""},
+  {e:"☕",t:"Caneca divertida",d:"Lembrança barata e que sempre agrada.",q:"caneca presente",c:["barato","ele","ela"],link:""},
+  {e:"🧦",t:"Meias natalinas",d:"Ideia leve para amigo secreto.",q:"meias natal",c:["barato"],link:""}
+];
+/* ============ FIM DA CONFIGURAÇÃO ============ */
+
+var FILTROS=[["todos","Todos"],["ele","Para ele"],["ela","Para ela"],["criancas","Crianças"],["casa","Casa"],["barato","Econômicos"]];
+var atual="todos";
+
+function href(p){
+  if(p.link) return p.link;
+  var u="https://www.amazon.com.br/s?k="+encodeURIComponent(p.q);
+  return AMAZON_TAG ? u+"&tag="+encodeURIComponent(AMAZON_TAG) : u;
+}
+function lerHash(){
+  var h=(location.hash||"").replace("#","");
+  return FILTROS.some(function(f){return f[0]===h}) ? h : "todos";
+}
+function desenhar(){
+  var chips=document.getElementById("chips");
+  chips.innerHTML="";
+  FILTROS.forEach(function(f){
+    var b=document.createElement("button");
+    b.className="chip";b.type="button";b.textContent=f[1];
+    b.setAttribute("aria-pressed",String(f[0]===atual));
+    b.onclick=function(){atual=f[0];try{history.replaceState(null,"","#"+f[0])}catch(e){}desenhar()};
+    chips.appendChild(b);
+  });
+  var g=document.getElementById("grid");
+  g.innerHTML="";
+  PRODUTOS.filter(function(p){return atual==="todos"||p.c.indexOf(atual)>-1}).forEach(function(p){
+    var d=document.createElement("article");
+    d.className="item";
+    d.innerHTML='<div class="emo" aria-hidden="true"></div><h2></h2><p></p><a class="buy" target="_blank" rel="sponsored nofollow noopener">Ver na loja</a>';
+    d.querySelector(".emo").textContent=p.e;
+    d.querySelector("h2").textContent=p.t;
+    d.querySelector("p").textContent=p.d;
+    d.querySelector("a").href=href(p);
+    g.appendChild(d);
+  });
+}
+(function(){
+  var hoje=new Date(),nat=new Date(hoje.getFullYear(),11,25);
+  var dias=Math.ceil((nat-new Date(hoje.getFullYear(),hoje.getMonth(),hoje.getDate()))/864e5);
+  var c=document.getElementById("count");
+  if(dias>0){c.textContent="Faltam "+dias+(dias===1?" dia":" dias")+" para o Natal"}
+  else if(dias===0){c.textContent="Hoje é Natal!"}
+  else{c.style.display="none"}
+  atual=lerHash();
+  desenhar();
+})();
+</script>
+</body>
+</html>
