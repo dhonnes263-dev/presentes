@@ -1,168 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Presentes de Natal por perfil</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#f7f5f0;--surface:#ffffff;--ink:#1d2a24;--muted:#5d6b64;--pine:#1f4a37;--berry:#b3202a;--line:#d9d6cc;--onpine:#f7f5f0;
-  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--bg:#121a16;--surface:#1a2520;--ink:#eef0ea;--muted:#a3b0a8;--pine:#8fd1ab;--berry:#ff7a7f;--line:#2d3b34;--onpine:#0f1a14;color-scheme:dark}
-}
-:root[data-theme="dark"]{--bg:#121a16;--surface:#1a2520;--ink:#eef0ea;--muted:#a3b0a8;--pine:#8fd1ab;--berry:#ff7a7f;--line:#2d3b34;--onpine:#0f1a14;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "DM Sans",system-ui,sans-serif}
-.wrap{max-width:880px;margin:0 auto;padding:28px 18px 40px}
-h1{font:800 clamp(2rem,7vw,3.2rem)/1.05 "Fraunces",Georgia,serif;margin:0 0 12px;letter-spacing:-.02em}
-.sub{color:var(--muted);max-width:52ch;margin:0 0 20px}
-.count{display:inline-block;background:var(--berry);color:#fff;font-weight:700;padding:6px 12px;border-radius:999px;margin:0 0 22px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
-.chip{font:500 .95rem "DM Sans",sans-serif;border:1.5px solid var(--pine);background:transparent;color:var(--pine);padding:8px 14px;border-radius:999px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--pine);color:var(--onpine)}
-.chip:focus-visible,.buy:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
-.emo{font-size:2rem;line-height:1}
-.item h2{font:600 1.15rem/1.25 "Fraunces",Georgia,serif;margin:4px 0 0}
-.item p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
-.buy{margin-top:10px;align-self:flex-start;background:var(--pine);color:var(--onpine);font-weight:700;text-decoration:none;padding:10px 16px;border-radius:8px}
-.buy:hover{filter:brightness(1.1)}
-footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
-:root{--onberry:#fff;padding-top:0}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--onberry:#2a0709}}
-:root[data-theme="dark"]{--onberry:#2a0709}
-.hero{position:relative;overflow:hidden;background:linear-gradient(160deg,#133126 0%,#1f4a37 60%,#2b5e46 100%);color:#f7f5f0;padding:calc(env(safe-area-inset-top,0px) + 44px) 18px 64px}
-.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20px 30px,rgba(255,255,255,.6),transparent),radial-gradient(3px 3px at 90px 80px,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 150px 20px,rgba(255,255,255,.5),transparent),radial-gradient(2.5px 2.5px at 60px 140px,rgba(255,255,255,.7),transparent);background-size:180px 180px;animation:snow 14s linear infinite;opacity:.75}
-@keyframes snow{to{background-position:-40px 180px}}
-@media (prefers-reduced-motion:reduce){.hero::before{animation:none}}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:18px;background:radial-gradient(circle at 12px 0,transparent 11px,var(--bg) 12px) 0 0/24px 18px repeat-x}
-.hero-in{position:relative;max-width:880px;margin:0 auto}
-.hero h1{color:#fff;font-size:clamp(2.3rem,8.5vw,4rem);max-width:15ch;margin-bottom:14px}
-.hero .sub{color:#cfe0d6;font-size:1.05rem;margin-bottom:22px}
-.hero .count{background:#f2c14e;color:#3a2a00;margin:0}
-.wrap{padding-top:26px}
-.chip{padding:10px 16px;font-size:1rem}
-.item{--acc:var(--pine);position:relative;padding:24px 20px 20px;border-radius:16px;transition:transform .2s,box-shadow .2s}
-.item:nth-child(3n+2){--acc:var(--berry)}
-.item:nth-child(3n){--acc:#c98f12}
-.item::before{content:"";position:absolute;left:20px;right:20px;top:0;height:4px;border-radius:0 0 4px 4px;background:var(--acc)}
-.item:hover{transform:translateY(-3px);box-shadow:0 12px 26px -14px rgba(0,0,0,.4)}
-.emo{width:56px;height:56px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--acc) 16%,var(--surface));font-size:1.7rem}
-.item h2{font-size:1.22rem}
-.buy{background:var(--berry);color:var(--onberry);text-align:center;align-self:stretch;margin-top:14px;border-radius:10px}
-.hero{text-align:center;border-radius:0 0 28px 28px;padding-bottom:44px;background:radial-gradient(120% 90% at 50% 0%,#2f6a50 0%,#1b4130 55%,#132e22 100%)}
-.hero::before,.hero::after{display:none}
-.hero h1{margin:0 auto 12px;max-width:16ch;font-size:clamp(2.1rem,8vw,3.6rem)}
-.hero .sub{margin:0 auto 20px;max-width:40ch}
-.wrap{padding-top:28px}
-.chips{justify-content:center}
-.chip{background:var(--surface);border-color:var(--line);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
-.chip[aria-pressed="true"]{background:var(--berry);border-color:var(--berry);color:var(--onberry)}
-.item{padding:12px 12px 16px;border:none;border-radius:20px;box-shadow:0 2px 14px -6px rgba(0,0,0,.28)}
-.item::before{display:none}
-.emo{width:100%;height:112px;border-radius:14px;font-size:3.4rem;background:color-mix(in srgb,var(--acc) 14%,var(--surface))}
-.item h2,.item p{padding:0 6px}
-.buy{align-self:stretch;margin:12px 6px 0;border-radius:999px;padding:12px 16px}
-:root{--pine:#7c3aed;--berry:#e11d48}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pine:#b794ff;--berry:#ff5c7a}}
-:root[data-theme="dark"]{--pine:#b794ff;--berry:#ff5c7a}
-.hero{background:linear-gradient(135deg,#d4145a 0%,#f0412f 52%,#ff8a00 100%)}
-.hero h1{color:#fff;text-shadow:0 2px 14px rgba(120,0,40,.35)}
-.hero .sub{color:#fff}
-.hero .count{background:#fff;color:#c4123b;box-shadow:0 4px 14px -4px rgba(120,0,40,.5)}
-.chip[aria-pressed="true"]{background:linear-gradient(135deg,#e11d48,#f97316);border-color:transparent;color:#fff}
-.item:nth-child(3n){--acc:#f59e0b}
-.buy{background:linear-gradient(135deg,#e11d48,#f97316);color:#fff;box-shadow:0 6px 14px -6px rgba(225,29,72,.7)}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Encontre ideias de presentes criativas, bonitas e para todos os bolsos. Compare sugestões e veja ofertas na Amazon.">
+  <title>Presente Perfeito — Ideias e ofertas</title>
+  <style>
+    :root{--ink:#171717;--muted:#6b6b6b;--gold:#c49a45;--gold-light:#f4e6c5;--paper:#fffdf9;--line:#eee8dc;--white:#fff}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+    a{color:inherit}
+    .wrap{width:min(1120px,calc(100% - 36px));margin-inline:auto}
+    .announcement{background:#111;color:#f8f2e5;text-align:center;font-size:.82rem;padding:9px 14px;letter-spacing:.02em}
+    header{background:rgba(255,253,249,.96);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+    .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{text-decoration:none;font-weight:850;letter-spacing:-.04em;font-size:1.35rem;white-space:nowrap}
+    .brand span{color:var(--gold)}
+    nav{display:flex;align-items:center;gap:24px}
+    nav a{text-decoration:none;font-size:.92rem;color:#444}
+    nav a:hover{color:#9b7427}
+    .nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:11px 17px;text-decoration:none;font-weight:750;font-size:.9rem;transition:transform .18s,background .18s}
+    .nav-cta{background:var(--ink);color:white}
+    .nav-cta:hover,.button:hover{transform:translateY(-2px)}
+    .hero{padding:64px 0 52px;background:radial-gradient(ellipse at 85% 15%,#f4e6c5 0,transparent 36%),linear-gradient(120deg,#fffdf9,#f8f2e7)}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:48px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#8a6727;font-weight:800;text-transform:uppercase;letter-spacing:.13em;font-size:.72rem}
+    .eyebrow:before{content:"";width:24px;height:2px;background:var(--gold)}
+    h1{font-size:clamp(2.5rem,5vw,4.65rem);line-height:1.03;letter-spacing:-.06em;margin:16px 0 18px;max-width:650px}
+    h1 em{font-style:normal;color:#a77c2c}
+    .hero p{font-size:1.08rem;color:#5e5a52;max-width:560px;margin:0 0 25px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .button.primary{background:var(--gold);color:#16130d}
+    .button.secondary{border:1px solid #d9cfbb;background:rgba(255,255,255,.6)}
+    .hero-note{font-size:.78rem!important;margin-top:17px!important;color:#81796b!important}
+    .hero-art{min-height:330px;border-radius:30px;background:#171717;position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:0 25px 60px #39290f20}
+    .hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #c49a4560;border-radius:50%;width:340px;height:340px}
+    .hero-art:after{width:250px;height:250px}
+    .gift-stack{position:relative;z-index:1;font-size:5.4rem;filter:drop-shadow(0 18px 12px #0005);transform:rotate(-5deg)}
+    .art-label{position:absolute;bottom:22px;left:22px;right:22px;color:#f8f2e5;display:flex;justify-content:space-between;align-items:end;gap:10px}
+    .art-label strong{font-size:1.05rem}
+    .art-label small{color:#d8c9a7}
+    section{padding:62px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:25px}
+    .section-head h2{font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.045em;line-height:1.1;margin:9px 0 0}
+    .section-head p{color:var(--muted);margin:8px 0 0;max-width:520px}
+    .categories{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .category{border:1px solid var(--line);background:white;border-radius:18px;padding:21px 17px;text-decoration:none;transition:transform .2s,border-color .2s}
+    .category:hover{transform:translateY(-3px);border-color:#d5b66f}
+    .category .emoji{font-size:1.75rem;display:block;margin-bottom:13px}
+    .category strong{display:block;font-size:1rem}
+    .category small{color:var(--muted)}
+    .products-section{background:#f7f3eb}
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:23px}
+    .search{flex:1;min-width:200px;border:1px solid #e3dac9;background:white;border-radius:999px;padding:12px 16px;font:inherit;outline:none}
+    .search:focus{border-color:var(--gold)}
+    .filter{border:1px solid #e3dac9;background:white;border-radius:999px;padding:10px 14px;font:inherit;cursor:pointer}
+    .filter.active{background:#171717;color:white;border-color:#171717}
+    .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .product{background:white;border:1px solid #eee7db;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .2s,box-shadow .2s}
+    .product:hover{transform:translateY(-4px);box-shadow:0 16px 30px #33240b0d}
+    .product-visual{height:185px;background:linear-gradient(135deg,#f5eddd,#fffaf1);display:grid;place-items:center;position:relative}
+    .product-visual span{font-size:4.3rem}
+    .tag{position:absolute;top:13px;left:13px;background:#171717;color:white;padding:5px 9px;border-radius:999px;font-size:.7rem;font-weight:800}
+    .product-content{padding:18px;display:flex;flex-direction:column;flex:1}
+    .product-content h3{font-size:1.04rem;margin:0 0 7px;letter-spacing:-.02em}
+    .product-content p{font-size:.88rem;color:var(--muted);margin:0 0 18px;flex:1}
+    .product-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid #f0ece4;padding-top:14px}
+    .price-note{font-size:.78rem;color:#7a6c51}
+    .product .button{background:var(--gold-light);color:#382b11;padding:10px 13px;white-space:nowrap}
+    .empty{grid-column:1/-1;text-align:center;padding:30px;color:var(--muted)}
+    .guide{display:grid;grid-template-columns:.8fr 1.2fr;gap:42px;align-items:start}
+    .guide-intro{position:sticky;top:110px}
+    .guide-intro h2{font-size:2.3rem;letter-spacing:-.05em;line-height:1.1;margin:12px 0}
+    .guide-intro p{color:var(--muted)}
+    .steps{display:grid;gap:13px}
+    .step{display:flex;gap:16px;border:1px solid var(--line);border-radius:18px;padding:19px;background:white}
+    .step-num{flex:0 0 38px;height:38px;border-radius:12px;background:var(--gold-light);display:grid;place-items:center;font-weight:850;color:#77571d}
+    .step h3{margin:1px 0 5px;font-size:1rem}
+    .step p{margin:0;color:var(--muted);font-size:.9rem}
+    .disclosure{background:#171717;color:#f7f0e3;border-radius:22px;padding:28px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px}
+    .disclosure h2{margin:0 0 8px;font-size:1.35rem}
+    .disclosure p{margin:0;color:#cfc6b5;font-size:.9rem;max-width:750px}
+    footer{padding:30px 0;border-top:1px solid var(--line);color:#777366;font-size:.82rem}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .footer-inner a{color:inherit}
+    @media(max-width:760px){
+      .wrap{width:min(100% - 28px,560px)}
+      .nav{min-height:65px}.nav nav{display:none}.brand{font-size:1.2rem}
+      .nav-cta{font-size:.8rem;padding:10px 12px}
+      .hero{padding:43px 0 35px}.hero-grid{grid-template-columns:1fr;gap:28px}
+      .hero-art{min-height:245px}.gift-stack{font-size:4.5rem}
+      section{padding:45px 0}.categories{grid-template-columns:repeat(2,1fr);gap:10px}
+      .category{padding:17px 14px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+      .product-visual{height:135px}.product-visual span{font-size:3.3rem}
+      .product-content{padding:13px}.product-content h3{font-size:.93rem}.product-content p{font-size:.81rem}
+      .product-footer{align-items:flex-start;flex-direction:column}.product .button{width:100%;font-size:.8rem}
+      .section-head{align-items:start;flex-direction:column}.guide{grid-template-columns:1fr;gap:22px}.guide-intro{position:static}
+      .guide-intro h2{font-size:2rem}.disclosure{padding:23px;align-items:start;flex-direction:column}
+    }
+    @media(max-width:380px){.product-grid{grid-template-columns:1fr}.product-visual{height:175px}.product-footer{flex-direction:row}.product .button{width:auto}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
 </head>
 <body>
-<header class="hero"><div class="hero-in">
-  <h1>Presentes de Natal que acertam em cheio</h1>
-  <p class="sub">Escolha para quem é o presente e veja ideias fáceis de encontrar e entregar a tempo.</p>
-  <div class="count" id="count"></div></div></header>
-<div class="wrap">
-  <div class="chips" id="chips" role="group" aria-label="Filtrar por perfil"></div>
-  <div class="grid" id="grid"></div>
-  <footer>Alguns links desta página são de afiliados: se você comprar por eles, o site pode receber uma comissão, sem custo extra para você. Preços e disponibilidade mudam, confira na loja.</footer>
-</div>
-<script>
-/* ============ CONFIGURAÇÃO: edite só esta parte ============ */
-// 1) Sua tag de afiliado da Amazon (Associados). Deixe "" até ter a sua.
-var AMAZON_TAG = "";
-// 2) Para usar outra loja (Mercado Livre, Shopee, Hotmart), cole seu link de afiliado no campo link do produto.
-var PRODUTOS = [
-  {e:"🎧",t:"Fone de ouvido bluetooth",d:"Para quem vive de música, treino e chamadas.",q:"fone de ouvido bluetooth",c:["ele","ela"],link:""},
-  {e:"⌚",t:"Relógio inteligente",d:"Notificações e saúde no pulso, de básico a completo.",q:"smartwatch",c:["ele","ela"],link:""},
-  {e:"🪒",t:"Kit de barbear e barba",d:"Presente clássico para quem cuida da barba.",q:"kit barba presente",c:["ele"],link:""},
-  {e:"🧰",t:"Maleta de ferramentas",d:"Útil para quem gosta de consertar e montar.",q:"maleta de ferramentas",c:["ele","casa"],link:""},
-  {e:"🧴",t:"Kit de skincare",d:"Rotina de cuidados com a pele em um só presente.",q:"kit skincare",c:["ela"],link:""},
-  {e:"👜",t:"Bolsa transversal",d:"Prática para o dia a dia e fácil de combinar.",q:"bolsa transversal feminina",c:["ela"],link:""},
-  {e:"💨",t:"Secador de cabelo",d:"Ótima opção para quem usa todo dia.",q:"secador de cabelo",c:["ela","casa"],link:""},
-  {e:"🕯️",t:"Vela aromática",d:"Presente simples e bonito para qualquer pessoa.",q:"vela aromática",c:["ela","casa","barato"],link:""},
-  {e:"🧱",t:"Blocos de montar",d:"Diversão e criatividade para várias idades.",q:"blocos de montar",c:["criancas"],link:""},
-  {e:"🧩",t:"Quebra-cabeça",d:"Passatempo para a família reunida no fim de ano.",q:"quebra-cabeça",c:["criancas","casa","barato"],link:""},
-  {e:"📚",t:"Livros infantis ilustrados",d:"Histórias para ler junto e criar o hábito.",q:"livro infantil ilustrado",c:["criancas","barato"],link:""},
-  {e:"🎲",t:"Jogo de tabuleiro",d:"Para juntar a turma e passar a noite jogando.",q:"jogo de tabuleiro",c:["criancas","ele","ela"],link:""},
-  {e:"🍟",t:"Air fryer",d:"Um dos eletros mais desejados para a cozinha.",q:"air fryer",c:["casa"],link:""},
-  {e:"🥤",t:"Garrafa térmica",d:"Mantém a bebida gelada ou quente por horas.",q:"garrafa térmica",c:["casa","ele","ela","barato"],link:""},
-  {e:"🧣",t:"Manta de sofá",d:"Conforto para o inverno e para maratonar séries.",q:"manta de sofá",c:["casa","ela"],link:""},
-  {e:"☕",t:"Caneca divertida",d:"Lembrança barata e que sempre agrada.",q:"caneca presente",c:["barato","ele","ela"],link:""},
-  {e:"🧦",t:"Meias natalinas",d:"Ideia leve para amigo secreto.",q:"meias natal",c:["barato"],link:""}
-];
-/* ============ FIM DA CONFIGURAÇÃO ============ */
+  <div class="announcement">Ideias especiais para presentear sem complicação ✦</div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#" aria-label="Presente Perfeito início">presente<span>.</span>perfeito</a>
+      <nav aria-label="Navegação principal">
+        <a href="#categorias">Categorias</a><a href="#ideias">Ideias de presentes</a><a href="#sobre">Como funciona</a>
+      </nav>
+      <a class="nav-cta" href="#ideias">Explorar ideias ↗</a>
+    </div>
+  </header>
 
-var FILTROS=[["todos","Todos"],["ele","Para ele"],["ela","Para ela"],["criancas","Crianças"],["casa","Casa"],["barato","Econômicos"]];
-var atual="todos";
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Guia de presentes</span>
+          <h1>O presente certo faz <em>toda a diferença.</em></h1>
+          <p>Inspiração para surpreender quem você ama. Descubra ideias criativas, encontre opções para diferentes estilos e escolha com mais facilidade.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#ideias">Encontrar um presente ↗</a>
+            <a class="button secondary" href="#categorias">Ver categorias</a>
+          </div>
+          <p class="hero-note">Sugestões selecionadas para ajudar você a escolher melhor.</p>
+        </div>
+        <div class="hero-art" aria-label="Ilustração de presentes elegantes">
+          <div class="gift-stack" aria-hidden="true">🎁</div>
+          <div class="art-label"><div><strong>Um detalhe, uma memória.</strong><br><small>Inspire-se e surpreenda.</small></div><span>✦ ✦ ✦</span></div>
+        </div>
+      </div>
+    </section>
 
-function href(p){
-  if(p.link) return p.link;
-  var u="https://www.amazon.com.br/s?k="+encodeURIComponent(p.q);
-  return AMAZON_TAG ? u+"&tag="+encodeURIComponent(AMAZON_TAG) : u;
-}
-function lerHash(){
-  var h=(location.hash||"").replace("#","");
-  return FILTROS.some(function(f){return f[0]===h}) ? h : "todos";
-}
-function desenhar(){
-  var chips=document.getElementById("chips");
-  chips.innerHTML="";
-  FILTROS.forEach(function(f){
-    var b=document.createElement("button");
-    b.className="chip";b.type="button";b.textContent=f[1];
-    b.setAttribute("aria-pressed",String(f[0]===atual));
-    b.onclick=function(){atual=f[0];try{history.replaceState(null,"","#"+f[0])}catch(e){}desenhar()};
-    chips.appendChild(b);
-  });
-  var g=document.getElementById("grid");
-  g.innerHTML="";
-  PRODUTOS.filter(function(p){return atual==="todos"||p.c.indexOf(atual)>-1}).forEach(function(p){
-    var d=document.createElement("article");
-    d.className="item";
-    d.innerHTML='<div class="emo" aria-hidden="true"></div><h2></h2><p></p><a class="buy" target="_blank" rel="sponsored nofollow noopener">Ver na loja</a>';
-    d.querySelector(".emo").textContent=p.e;
-    d.querySelector("h2").textContent=p.t;
-    d.querySelector("p").textContent=p.d;
-    d.querySelector("a").href=href(p);
-    g.appendChild(d);
-  });
-}
-(function(){
-  var hoje=new Date(),nat=new Date(hoje.getFullYear(),11,25);
-  var dias=Math.ceil((nat-new Date(hoje.getFullYear(),hoje.getMonth(),hoje.getDate()))/864e5);
-  var c=document.getElementById("count");
-  if(dias>0){c.textContent="Faltam "+dias+(dias===1?" dia":" dias")+" para o Natal"}
-  else if(dias===0){c.textContent="Hoje é Natal!"}
-  else{c.style.display="none"}
-  atual=lerHash();
-  desenhar();
-})();
-</script>
+    <section id="categorias">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Escolha por pessoa</span><h2>Para quem é o presente?</h2><p>Comece por uma categoria e encontre uma ideia que combine com a pessoa.</p></div></div>
+        <div class="categories">
+          <a class="category" href="#ideias" data-category="ela"><span class="emoji">💝</span><strong>Para ela</strong><small>Carinho em cada detalhe</small></a>
+          <a class="category" href="#ideias" data-category="ele"><span class="emoji">🎧</span><strong>Para ele</strong><small>Estilo, tecnologia e hobbies</small></a>
+          <a class="category" href="#ideias" data-category="casa"><span class="emoji">🕯️</span><strong>Para a casa</strong><small>Conforto e decoração</small></a>
+          <a class="category" href="#ideias" data-category="criativo"><span class="emoji">✨</span><strong>Criativos</strong><small>Ideias fora do comum</small></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="products-section" id="ideias">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Inspiração selecionada</span><h2>Ideias para surpreender</h2><p>Use a busca ou filtre as sugestões. Os links levam à pesquisa do produto na Amazon.</p></div></div>
+        <div class="toolbar">
+          <input class="search" id="search" type="search" placeholder="Buscar uma ideia de presente..." aria-label="Buscar presentes">
+          <button class="filter active" type="button" data-filter="todos">Todos</button>
+          <button class="filter" type="button" data-filter="ela">Para ela</button>
+          <button class="filter" type="button" data-filter="ele">Para ele</button>
+          <button class="filter" type="button" data-filter="casa">Para casa</button>
+          <button class="filter" type="button" data-filter="criativo">Criativos</button>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <article class="product" data-category="ele criativo" data-name="fone de ouvido bluetooth">
+            <div class="product-visual"><span aria-hidden="true">🎧</span><span class="tag">Tecnologia</span></div>
+            <div class="product-content"><h3>Fone de ouvido Bluetooth</h3><p>Uma opção prática para quem ama música, jogos e podcasts.</p><div class="product-footer"><span class="price-note">Consulte o preço</span><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.amazon.com.br/s?k=fone+de+ouvido+bluetooth">Ver oferta ↗</a></div></div>
+          </article>
+          <article class="product" data-category="ela casa" data-name="kit de cuidados pessoais">
+            <div class="product-visual"><span aria-hidden="true">🧴</span><span class="tag">Autocuidado</span></div>
+            <div class="product-content"><h3>Kit de cuidados pessoais</h3><p>Uma lembrança para criar um momento de descanso e bem-estar.</p><div class="product-footer"><span class="price-note">Consulte o preço</span><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.amazon.com.br/s?k=kit+cuidados+pessoais+presente">Ver oferta ↗</a></div></div>
+          </article>
+          <article class="product" data-category="casa criativo" data-name="luminária decorativa">
+            <div class="product-visual"><span aria-hidden="true">💡</span><span class="tag">Decoração</span></div>
+            <div class="product-content"><h3>Luminária decorativa</h3><p>Um toque aconchegante para quarto, escritório ou sala.</p><div class="product-footer"><span class="price-note">Consulte o preço</span><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.amazon.com.br/s?k=luminaria+decorativa">Ver oferta ↗</a></div></div>
+          </article>
+          <article class="product" data-category="ele criativo" data-name="acessórios gamer">
+            <div class="product-visual"><span aria-hidden="true">🎮</span><span class="tag">Games</span></div>
+            <div class="product-content"><h3>Acessórios gamer</h3><p>Ideias para deixar a estação de jogo mais completa.</p><div class="product-footer"><span class="price-note">Consulte o preço</span><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.amazon.com.br/s?k=acessorios+gamer+presente">Ver oferta ↗</a></div></div>
+          </article>
+          <article class="product" data-category="ela casa" data-name="caneca especial">
+            <div class="product-visual"><span aria-hidden="true">☕</span><span class="tag">Clássico</span></div>
+            <div class="product-content"><h3>Caneca especial</h3><p>Uma escolha simples para quem gosta de café, chá ou chocolate quente.</p><div class="product-footer"><span class="price-note">Consulte o preço</span><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.amazon.com.br/s?k=caneca+presente+criativa">Ver oferta ↗</a></div></div>
+          </article>
+          <article class="product" data-category="criativo ela ele" data-name="jogo de tabuleiro">
+            <div class="product-visual"><span aria-hidden="true">🎲</span><span class="tag">Diversão</span></div>
+            <div class="product-content"><h3>Jogo de tabuleiro</h3><p>Para presentear alguém que gosta de reunir amigos e família.</p><div class="product-footer"><span class="price-note">Consulte o preço</span><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.amazon.com.br/s?k=jogo+de+tabuleiro">Ver oferta ↗</a></div></div>
+          </article>
+        </div>
+        <p id="noResults" class="empty" hidden>Nenhuma sugestão encontrada. Tente outra busca.</p>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="wrap guide">
+        <div class="guide-intro"><span class="eyebrow">Sem complicação</span><h2>Escolher bem pode ser simples.</h2><p>Use este guia como ponto de partida para encontrar algo que combine com a pessoa e com a ocasião.</p><a class="button primary" href="#ideias">Ver sugestões ↗</a></div>
+        <div class="steps">
+          <div class="step"><span class="step-num">01</span><div><h3>Pense na pessoa</h3><p>Considere os gostos, hobbies e a rotina de quem vai receber o presente.</p></div></div>
+          <div class="step"><span class="step-num">02</span><div><h3>Compare as opções</h3><p>Confira descrição, avaliações, preço e prazo de entrega na loja.</p></div></div>
+          <div class="step"><span class="step-num">03</span><div><h3>Confira antes de comprar</h3><p>Os valores e a disponibilidade podem mudar. Veja as informações atualizadas no site do vendedor.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="wrap disclosure">
+        <div><h2>Transparência é importante.</h2><p>Este site pode participar de programas de afiliados. Se você comprar por determinados links, o responsável pelo site poderá receber uma comissão, sem custo adicional para você. Os links atuais são pesquisas de produtos e não identificam, por si só, uma conta de afiliado.</p></div>
+        <span aria-hidden="true" style="font-size:2rem">✦</span>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap footer-inner"><span>© <span id="year"></span> Presente Perfeito. Feito para inspirar.</span><span>Preços, estoque e condições são definidos pelas lojas.</span></div>
+  </footer>
+  <script>
+    const search = document.getElementById('search');
+    const cards = [...document.querySelectorAll('.product')];
+    const filters = [...document.querySelectorAll('.filter')];
+    const noResults = document.getElementById('noResults');
+    let activeFilter = 'todos';
+    function updateCards() {
+      const term = search.value.trim().toLocaleLowerCase('pt-BR');
+      let visible = 0;
+      cards.forEach(card => {
+        const categories = card.dataset.category.split(' ');
+        const matchesCategory = activeFilter === 'todos' || categories.includes(activeFilter);
+        const matchesSearch = (card.dataset.name + ' ' + card.innerText).toLocaleLowerCase('pt-BR').includes(term);
+        const show = matchesCategory && matchesSearch;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      noResults.hidden = visible !== 0;
+    }
+    filters.forEach(button => button.addEventListener('click', () => {
+      activeFilter = button.dataset.filter;
+      filters.forEach(item => item.classList.toggle('active', item === button));
+      updateCards();
+    }));
+    document.querySelectorAll('[data-category]').forEach(link => link.addEventListener('click', () => {
+      const category = link.dataset.category;
+      if (['ela','ele','casa','criativo'].includes(category)) {
+        activeFilter = category;
+        filters.forEach(item => item.classList.toggle('active', item.dataset.filter === category));
+        updateCards();
+      }
+    }));
+    search.addEventListener('input', updateCards);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
